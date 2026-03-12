@@ -1,6 +1,0 @@
-com/example/colas/ColasDemoApplication.class
-com/example/colas/service/ProductorService.class
-com/example/colas/consumer/Consumidor.class
-com/example/colas/config/RabbitMQConfig.class
-com/example/colas/model/Mensaje.class
-com/example/colas/controller/ColasController.class
