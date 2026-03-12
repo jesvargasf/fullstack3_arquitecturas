@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "s1m2p3l4-e5f6-7890-simple-demo",
+		"name": "API Colas Simple - Demo Académica",
+		"description": "Colección simplificada para demostrar colas de mensajería en clases",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Info Sistema",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"console.log('=== INFO SISTEMA ===');",
+							"console.log('Servicio:', response.servicio);",
+							"console.log('Concepto:', response.concepto);",
+							"console.log('Tecnología:', response.tecnologia);",
+							"console.log('Cola:', response.cola);",
+							"",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('System info available', function () {",
+							"    pm.expect(response).to.have.property('servicio');",
+							"    pm.expect(response).to.have.property('concepto');",
+							"    pm.expect(response).to.have.property('tecnologia');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"info"
+					]
+				},
+				"description": "Verifica que el sistema esté funcionando correctamente"
+			},
+			"response": []
+		},
+		{
+			"name": "2. Enviar Mensaje Simple",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"console.log('=== MENSAJE ENVIADO ===');",
+							"console.log('Mensaje:', response.contenido);",
+							"console.log('Estado:', response.estado);",
+							"console.log('Respuesta:', response.message);",
+							"",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Message sent successfully', function () {",
+							"    pm.expect(response).to.have.property('message');",
+							"    pm.expect(response).to.have.property('contenido');",
+							"    pm.expect(response).to.have.property('estado', 'EN_COLA');",
+							"});",
+							"",
+							"pm.test('Content is not empty', function () {",
+							"    pm.expect(response.contenido).to.be.a('string');",
+							"    pm.expect(response.contenido.length).to.be.greaterThan(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"contenido\": \"Hola mundo desde la cola - mensaje de prueba\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/enviar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"enviar"
+					]
+				},
+				"description": "Envía un mensaje simple a la cola. Revisa los logs del consumidor para ver el procesamiento."
+			},
+			"response": []
+		},
+		{
+			"name": "3. Demo con 3 Mensajes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"console.log('=== DEMO EJECUTADA ===');",
+							"console.log('Mensajes enviados:', response.mensajes_enviados);",
+							"console.log('Instrucción:', response.instruccion);",
+							"",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Demo executed successfully', function () {",
+							"    pm.expect(response).to.have.property('message', 'Demo simple ejecutada');",
+							"    pm.expect(response).to.have.property('mensajes_enviados', '3');",
+							"    pm.expect(response).to.have.property('instruccion');",
+							"});",
+							"",
+							"console.log('👆 Ahora revisa los logs de la aplicación para ver los 3 mensajes siendo procesados');"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/demo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"demo"
+					]
+				},
+				"description": "Ejecuta una demostración automática enviando 3 mensajes a la cola. Perfecto para ver el sistema en acción."
+			},
+			"response": []
+		},
+		{
+			"name": "4. Mensaje Personalizado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"console.log('=== MENSAJE PERSONALIZADO ===');",
+							"console.log('Contenido:', response.contenido);",
+							"console.log('Estado:', response.estado);",
+							"",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Custom message sent', function () {",
+							"    pm.expect(response).to.have.property('estado', 'EN_COLA');",
+							"    pm.expect(response.contenido).to.include('clases');",
+							"});",
+							"",
+							"console.log('💡 Puedes modificar el contenido en el body para probar diferentes mensajes');"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"contenido\": \"Mensaje especial para la clase de arquitectura\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/enviar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"enviar"
+					]
+				},
+				"description": "Envía un mensaje personalizado. Modifica el contenido para probar diferentes escenarios."
+			},
+			"response": []
+		},
+		{
+			"name": "5. Error - Contenido Vacío",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"console.log('=== CASO DE ERROR ===');",
+							"console.log('Error:', response.error);",
+							"",
+							"pm.test('Status code is 400', function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test('Error handled correctly', function () {",
+							"    pm.expect(response).to.have.property('error');",
+							"    pm.expect(response.error).to.include('requerido');",
+							"});",
+							"",
+							"console.log('🚫 Esto demuestra el manejo de errores en la API');"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"contenido\": \"\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/enviar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"enviar"
+					]
+				},
+				"description": "Demuestra el manejo de errores cuando el contenido está vacío."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Limpiar consola para mejor visualización",
+					"console.clear();",
+					"console.log('🚀 Iniciando prueba de API de Colas Simples');",
+					"console.log('📋 Asegúrate que RabbitMQ está corriendo y la aplicación en http://localhost:8081');"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

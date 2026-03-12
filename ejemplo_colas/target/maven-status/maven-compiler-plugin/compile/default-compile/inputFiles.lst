@@ -1,0 +1,6 @@
+/Users/jesus.vargas/MATERIAL DUOC/Full Stack 3/ejemplo_colas/src/main/java/com/example/colas/config/RabbitMQConfig.java
+/Users/jesus.vargas/MATERIAL DUOC/Full Stack 3/ejemplo_colas/src/main/java/com/example/colas/ColasDemoApplication.java
+/Users/jesus.vargas/MATERIAL DUOC/Full Stack 3/ejemplo_colas/src/main/java/com/example/colas/model/Mensaje.java
+/Users/jesus.vargas/MATERIAL DUOC/Full Stack 3/ejemplo_colas/src/main/java/com/example/colas/consumer/Consumidor.java
+/Users/jesus.vargas/MATERIAL DUOC/Full Stack 3/ejemplo_colas/src/main/java/com/example/colas/service/ProductorService.java
+/Users/jesus.vargas/MATERIAL DUOC/Full Stack 3/ejemplo_colas/src/main/java/com/example/colas/controller/ColasController.java
