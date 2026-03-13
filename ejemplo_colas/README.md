@@ -24,18 +24,41 @@ Enseñar el concepto básico de colas de mensajería con un ejemplo simple y cla
 
 ### Instalar y Ejecutar
 
+#### **Para macOS/Linux:**
 ```bash
 # 1. Instalar RabbitMQ
 brew install rabbitmq
 
 # 2. Iniciar RabbitMQ
 brew services start rabbitmq
+```
 
-# 3. Ejecutar aplicación
+#### **Para Windows:**
+```bash
+# 1. Descargar e instalar RabbitMQ
+# Descargar desde: https://www.rabbitmq.com/download.html
+# Instalar Erlang primero (requisito): https://erlang.org/download/
+
+# 2. Instalar RabbitMQ como servicio
+# Ejecutar como Administrador:
+"C:\Program Files\RabbitMQ Server\rabbitmq_server-3.12.0\sbin\rabbitmq-service.bat" install
+
+# 3. Iniciar el servicio
+"C:\Program Files\RabbitMQ Server\rabbitmq_server-3.12.0\sbin\rabbitmq-service.bat" start
+
+# 4. Habilitar plugin de gestión (opcional pero recomendado)
+"C:\Program Files\RabbitMQ Server\rabbitmq_server-3.12.0\sbin\rabbitmq-plugins.bat" enable rabbitmq_management
+```
+
+#### **Para ambos sistemas:**
+```bash
+# 4. Ejecutar aplicación
 mvn spring-boot:run
 ```
 
 API disponible en: http://localhost:8081
+
+**Nota**: Para Windows, la RabbitMQ Management UI estará disponible en: http://localhost:15672 (usuario: guest, contraseña: guest)
 
 ## 📡 Endpoints Simples
 
